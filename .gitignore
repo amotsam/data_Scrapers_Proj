@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# Environment variables and secrets
+.env
+*.env
+
+# Logs
+logs/
+*.log
+
+# Data directories
+data/rawData/
+data/cleaned/
+data/transformed/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# Docker
+*.env
+*.dockerignore
+docker-compose.override.yml
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.swp
+
+# Specific configuration
+*.config
+*.ini
+
+# Output and cache files
+*.csv
+*.xlsx
+*.json
