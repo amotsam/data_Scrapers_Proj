@@ -1,6 +1,6 @@
 Data Scrapers Project
 
-This project provides tools for web scraping, data cleaning, and uploading CSV files into a PostgreSQL database.
+This project provides tools for web scraping, data cleaning, and uploading CSV files as tables a PostgreSQL database.
 
 Features
 
