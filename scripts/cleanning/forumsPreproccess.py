@@ -6,13 +6,9 @@ def clean(file_path):
     forums_df = pd.read_csv(file_path)
 
     # Drop NA values
-    #(no drop duplicate, maybe neccesary)
     forums_df = forums_df.dropna()
 
-    #Dropping unwanted coulmns was done on scraping phase
-
-    #Data cleanning for forums_df
-        # Standardize data formats
+    # Data cleaning for forums_df
     def convert_to_numeric(value):
         """Convert strings like '225.3K' or '1.5M' to numeric values."""
         try:
@@ -35,6 +31,8 @@ def clean(file_path):
     # Remove rows with non-positive values in numeric columns
     forums_df = forums_df[(forums_df['Topics'] > 0) & (forums_df['Messages'] > 0)]
 
+    # Convert numeric columns to integers to remove .0
+    forums_df['Topics'] = forums_df['Topics'].astype(int)
+    forums_df['Messages'] = forums_df['Messages'].astype(int)
+
     return forums_df
-
-
