@@ -65,11 +65,11 @@ def run_scraper(domain):
         # Clean data
         cleaner_module = import_module(f"scripts.cleanning.{domain}Preproccess")
         cleaned_data = cleaner_module.clean(config["RAW_OUTPUT_FILE"])
-        utils.save_to_csv(cleaned_data, config["CLEANED_OUTPUT_FILE"])
+        utils.save_to_csv(cleaned_data, config["TRANSFORMED_OUTPUT_FILE"])
 
         # Transform data
         transformer_module = import_module(f"scripts.transformation.{domain}_feature_eng")
-        transformed_data = transformer_module.transform(config["CLEANED_OUTPUT_FILE"])
+        transformed_data = transformer_module.transform(config["TRANSFORMED_OUTPUT_FILE"])
         utils.save_to_csv(transformed_data, config["TRANSFORMED_OUTPUT_FILE"])
 
         # Validate transformed data

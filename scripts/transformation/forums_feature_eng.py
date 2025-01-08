@@ -1,6 +1,4 @@
-
 import pandas as pd
-
 
 # Forums domain
 # User active grade
