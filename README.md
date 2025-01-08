@@ -11,22 +11,25 @@ Load CSV files into PostgreSQL.
 Automatically create database tables if needed.
 
 Setup
+Build and Run the Docker Container:
 
-Install dependencies:
+To set up the project, use Docker to build and run the container. The container will automatically execute the src/main.py file, and you can view the logs in real-time as it runs.
 
-pip install -r requirements.txt
+bash
+Copy code
+docker build -t my_image_name . && docker run --rm -it my_image_name
 
-Update PostgreSQL credentials in the csv_to_postgres_loader.py script.
+docker build -t my_image_name .: Builds the Docker image and tags it as my_image_name.
+docker run --rm -it my_image_name: Runs the Docker container interactively and removes it after it stops.
+Logs: The logs from src/main.py will be displayed in your terminal.
 
-Usage
+Configuration
 
-Run the scraper:
+PostgreSQL Credentials:
+Update the PostgreSQL credentials in config.json or as environment variables in the Dockerfile, depending on your setup.
+Dependencies:
 
-python web_scraper.py
-
-Upload a CSV file to PostgreSQL:
-
-python csv_to_postgres_loader.py
+All required dependencies are installed automatically in the Docker image using the requirements.txt file.
 
 File Structure
 
@@ -34,7 +37,7 @@ scrapers/: Web scraping scripts.
 
 db_loader/: PostgreSQL loader script.
 
-data/: Raw and cleaned data.
+data/: Raw, cleaned and transformed data.
 
 License
 
