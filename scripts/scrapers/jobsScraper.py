@@ -1,21 +1,9 @@
-import requests
 from bs4 import BeautifulSoup
 import logging
-from config import SCRAPER_CONFIGS
+
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
-def fetch_html(url, session, timeout=10):
-    """Fetch the HTML content of a URL."""
-    try:
-        response = session.get(url, headers=SCRAPER_CONFIGS["jobs"]["HEADERS"], timeout=timeout)
-        response.raise_for_status()
-        return response.text
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Failed to fetch {url}: {e}")
-        return None
 
 
 def parse_data(html):

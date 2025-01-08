@@ -1,18 +1,7 @@
-import requests
+
 from bs4 import BeautifulSoup
 import logging
 
-def fetch_html(url, session, timeout=10):
-    """Fetch the HTML content of a URL."""
-    try:
-        response = session.get(url, headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-        }, timeout=timeout)
-        response.raise_for_status()
-        return response.text
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Failed to fetch {url}: {e}")
-        return None
 
 def parse_data(html):
     """Parse the HTML content and extract review data."""

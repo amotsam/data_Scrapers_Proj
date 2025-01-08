@@ -1,11 +1,10 @@
 import pandas as pd
 import logging
-from requests.adapters import HTTPAdapter
 import requests
 from urllib3 import Retry
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 import os
+from config import SCRAPER_CONFIGS
 
 def save_to_csv(data, file_path):
     """Save the extracted data to a CSV file."""
@@ -26,11 +25,11 @@ def Init_session():
     session.mount("https://", adapter)
     return session
 
-def fetch_html(url,session):
+def fetch_html(url,session,domain):
     """Fetch the HTML content of a URL."""
 
     try:
-        response = session.get(url, headers=HEADERS)
+        response = session.get(url, headers=SCRAPER_CONFIGS[f"{domain}"]["HEADERS"])
         response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:

@@ -1,12 +1,14 @@
 import logging
-import utils
+import utils as utils
 from config import SCRAPER_CONFIGS
 from importlib import import_module
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../")
+import data_loader
+
 
 def loginng():
+    """Set up logging configuration."""
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
@@ -36,6 +38,7 @@ def validate_data(file_path, validation_rules):
 
 
 def run_scraper(domain):
+    """Run the scraping and processing pipeline for a specific domain."""
     logging.info(f"Starting pipeline for {domain}...")
     try:
         config = SCRAPER_CONFIGS[domain]
@@ -45,10 +48,11 @@ def run_scraper(domain):
         scraper_module = import_module(f"scripts.scrapers.{domain}Scraper")
 
         # Scrape raw data
-        html_scraped = scraper_module.fetch_html(config["BASE_URL"], session)
+        html_scraped = utils.fetch_html(config["BASE_URL"], session,domain)
+
         if not html_scraped:
             raise RuntimeError(f"Scraping failed for {domain}")
-
+        # Parse
         if hasattr(scraper_module, "parse_data"):
             raw_data = scraper_module.parse_data(html_scraped)
             utils.save_to_csv(raw_data, config["RAW_OUTPUT_FILE"])
@@ -79,16 +83,33 @@ def run_scraper(domain):
         logging.error(f"Error in pipeline for {domain}: {e}")
 
 
-def main():
-    loginng()
-    logging.info("Starting scraping project...")
+def load_data_to_db():
+    """Load data from cleaned CSVs into the database."""
+    logging.info("Starting data loading into PostgreSQL...")
+    try:
+        data_loader.process_all_tables()
+        logging.info("Data loading completed successfully.")
+    except Exception as e:
+        logging.error(f"Error during data loading: {e}")
 
+
+def main():
+    """Main function to orchestrate scraping and data loading."""
+    loginng()
+    logging.info("Starting scraping and data loading project...")
+
+    # Run scraping and processing for all domains
     for domain in SCRAPER_CONFIGS["ALL_DOMAINS"]:
         try:
             run_scraper(domain)
         except Exception as e:
             logging.error(f"Failed to process domain {domain}: {e}")
 
-    logging.info("All scraping tasks completed.")
+    # Load cleaned data into PostgreSQL
+    load_data_to_db()
+
+    logging.info("All tasks completed.")
+
+
 if __name__ == "__main__":
     main()

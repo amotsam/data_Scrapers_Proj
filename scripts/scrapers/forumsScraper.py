@@ -1,32 +1,9 @@
-import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 import logging
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
-from config import SCRAPER_CONFIGS
-import utils
-import json
-from config import SCRAPER_CONFIGS
 
 
-
-def config_forums_vars():
-    with open("config.json") as f:
-        config = json.load(f)
-    scraper_name = "forums"  # Choose the scraper dynamically
-    scraper_config = config[scraper_name]
-    return scraper_config
-
-def fetch_html(url, session, timeout=10):
-    """Fetch the HTML content of a URL."""
-    try:
-        response = session.get(url, headers=SCRAPER_CONFIGS["forums"]["HEADERS"], timeout=timeout)
-        response.raise_for_status()
-        return response.text
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Failed to fetch {url}: {e}")
-        return None
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def parse_data(html):

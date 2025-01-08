@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from unittest.mock import patch
-from main import validate_data
+from src.main import validate_data
 
 class TestValidation(unittest.TestCase):
     @patch("pandas.read_csv")
