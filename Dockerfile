@@ -8,6 +8,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Add src to PYTHONPATH
+ENV PYTHONPATH=/app
+
 # Copy the rest of the application code into the container
 COPY . .
 

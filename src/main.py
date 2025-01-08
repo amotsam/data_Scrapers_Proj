@@ -2,8 +2,6 @@ import logging
 import utils as utils
 from config import SCRAPER_CONFIGS
 from importlib import import_module
-import sys
-import os
 import data_loader
 
 
