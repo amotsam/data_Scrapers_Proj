@@ -31,17 +31,9 @@ Dependencies:
 
 All required dependencies are installed automatically in the Docker image using the requirements.txt file.
 
-File Structure
 
-scrapers/: Web scraping scripts.
 
-db_loader/: PostgreSQL loader script.
 
-data/: Raw, cleaned and transformed data.
-
-License
-
-This project is licensed under the MIT License.
 
 Contact
 
