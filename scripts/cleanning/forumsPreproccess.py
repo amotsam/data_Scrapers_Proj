@@ -1,5 +1,5 @@
 import pandas as pd
-from config import SCRAPER_CONFIGS
+from src.config import SCRAPER_CONFIGS
 
 def clean(file_path):
     # Load the data
@@ -36,6 +36,5 @@ def clean(file_path):
     forums_df = forums_df[(forums_df['Topics'] > 0) & (forums_df['Messages'] > 0)]
 
     return forums_df
-    print(f'Data cleaning completed. Cleaned dataset saved to {SCRAPER_CONFIGS["forums"]["CLEANED_OUTPUT_FILE"]}.')
 
 

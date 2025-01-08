@@ -1,5 +1,5 @@
 import pandas as pd
-from config import SCRAPER_CONFIGS
+
 
 def clean(file_path):
     """Clean the raw news data."""
@@ -11,6 +11,8 @@ def clean(file_path):
         news_df['Summary'] = news_df['Summary'].fillna('None')
     if 'Header' in news_df.columns:
         news_df['Header'] = news_df['Header'].fillna('None')
+    if 'Link' in news_df.columns:
+        news_df['Link'] = news_df['Link'].fillna('None')
 
     # Transform the 'DateTime' column to datetime
     if 'DateTime' in news_df.columns:
@@ -28,5 +30,14 @@ def clean(file_path):
     # Standardize column data (additional transformations can be added here)
     if 'Header' in news_df.columns:
         news_df['Header'] = news_df['Header'].str.strip()
+    if 'Summary' in news_df.columns:
+        news_df['Summary'] = news_df['Summary'].str.strip()
+    if 'Link' in news_df.columns:
+        news_df['Link'] = news_df['Link'].str.strip()
+
+    # Remove rows where 'Header', 'Summary', and 'Link' are all empty or 'None'
+    news_df = news_df[~((news_df['Header'] == 'None') &
+                        (news_df['Summary'] == 'None') &
+                        (news_df['Link'] == 'None'))]
 
     return news_df

@@ -1,5 +1,5 @@
 import pandas as pd
-from config import SCRAPER_CONFIGS
+from src.config import SCRAPER_CONFIGS
 
 def clean(file_path):
     """Clean the raw job postings data."""
